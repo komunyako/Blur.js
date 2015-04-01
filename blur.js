@@ -197,7 +197,7 @@ define(['jquery'], function ($) {
         return this.each(function () {
             var canvas = document.createElement('canvas');
             var isCached = false;
-            var selector = ($(this).selector).replace(/[^a-zA-Z0-9]/g, "");
+            var selector = this.className.replace(/[^a-zA-Z0-9]/g, "");
             if(!canvas.getContext) {
                 return;
             }
@@ -257,7 +257,10 @@ define(['jquery'], function ($) {
                 var newData = '';
                 for(var key in opts) {
                     var obj = opts[key];
-                    if(obj.toString() == '[object Object]') {
+                    if ( key == 'source' && (typeof obj === 'object') ) {
+                        newData += obj.html();
+                    }
+                    else if( typeof obj === 'object' ) {
                         newData += ((obj.x).toString() + (obj.y).toString() + ",").replace(/[^a-zA-Z0-9]/g, "");
                     } else {
                         newData += (obj + ",").replace(/[^a-zA-Z0-9]/g, "");
