@@ -207,6 +207,9 @@ define(['jquery'], function ($) {
             var formattedSource = ($source.css('backgroundImage')).replace(/"/g, "").replace(/url\(|\)$/ig, "");
             var ctx = canvas.getContext('2d');
             var tempImg = new Image();
+            if(formattedSource.match(/http:\/\/|https:\/\//)){
+                tempImg.setAttribute('crossorigin', 'anonymous');
+            }
             tempImg.onload = function () {
                 if(!isCached) {
                     canvas.style.display = "none";
